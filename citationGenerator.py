@@ -4,6 +4,8 @@ import sys
 source_type = ""
 components = {} 
 
+#-----------------------------------------------
+
 # methods to correctly format information
 # step 1: check for accepted type
 def check_source_type(source_type):
@@ -56,7 +58,16 @@ def get_publication_date(publication_date):
     else:
         components["publication_date"] = publication_date + ","
 
+
 # step 8: location (website or page number(s))
+def get_location(location):
+    if source_type == "website":
+        components["location"] = location + "."
+    if location == "none":
+        components["location"] = None
+    else:
+        components["location"] = "pp. " + location + "."
+
 
 # step 9: compile and print mla citation
 def get_mla_citation():
@@ -64,10 +75,14 @@ def get_mla_citation():
     for component in components.values():
         if component != None:
             mla_citation += component + " "
+    if mla_citation[-1] != ".":
+        period_mla_citation = mla_citation[0:-2] + "."
+        return period_mla_citation
     return mla_citation
-# ----------------------------------------------------------
 
-# main method
+#-----------------------------------------------
+
+# script
 print("Welcome to Andy's MLA Citation Generator: your ad free generator!")
 print("If you are citing a book, wesbite, journal, magazine, or newspaper, this is the place for you!")
 print("What type of source are you citing?")
@@ -110,25 +125,26 @@ get_publisher(input())
 print("\nWhat is the publication date?")
 get_publication_date(input())
 
-# output mla citiation to terminal
+# inputting location
+print("\nWhere is this source found?")
+if source_type == "website":
+    print("Enter the website's URL or enter \"none\" if N/A.:")
+else:
+    print("Enter the page number(s) or enter \"none\" if N/A.:")
+get_location(input())
+
+# output mla citiation to terminal and print italicized list
 print("\nYour citation is: \n" + get_mla_citation())
 
+# List of what needs to be italicized:
+# 1) title of book
+# 2) container
 if source_type == "book" or container != "none":
-    print("\nThe following items must be italicized:")
+    print("\nThe following item(s) must be italicized:")
     if source_type == "book":
         print(formatted_title)
     if container != "none":
         print(container)
-
-
-
-
-SystemExit
-
-
-# List of what needs to be italicized:
-# 1) title of website
-# 2) container
 
 
 # future additions
