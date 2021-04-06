@@ -12,7 +12,8 @@ def check_source_type(source_type):
     if source_type.lower() == "book" or source_type.lower() == "website" or source_type.lower() == "journal" or source_type.lower() == "magazine" or source_type.lower() == "newspaper":
         print("\n" + source_type.title() + " is an accepted type.")
     else:
-        sys.exit("That is not an accepted format.\nPlease enter an accepted format and try again!")
+        print("That is not an accepted format.\nPlease enter an accepted format and try again!")
+        check_source_type(input())
 
 # step 2: get author
 def get_author(first_name, middle_initial, last_name):
